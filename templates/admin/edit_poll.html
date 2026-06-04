@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="mb-3">
+
+    <button
+        onclick="history.back()"
+        class="btn btn-outline-secondary rounded-pill">
+
+        <i class="bi bi-arrow-left"></i>
+        Kembali
+
+    </button>
+
+</div>
+
+<div class="vote-box">
+
+    <h2 class="fw-bold mb-4">
+        Edit Polling
+    </h2>
+
+    <form method="POST">
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Pertanyaan Polling
+            </label>
+
+            <input
+                type="text"
+                class="form-control"
+                name="question"
+                value="{{ poll.question }}"
+                required>
+
+        </div>
+
+        <button
+            type="submit"
+            class="btn btn-warning">
+
+            Update
+
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

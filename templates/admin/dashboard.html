@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="admin-header mb-4">
+  <div>
+    <span class="admin-badge">Admin Panel</span>
+    <h2 class="fw-bold mt-2 mb-1">Dashboard Polling</h2>
+    <p class="text-muted mb-0">
+      Kelola daftar polling yang tersedia di aplikasi SuaraKita.
+    </p>
+  </div>
+
+  <div class="d-flex gap-3">
+    <a href="/admin/add" class="btn btn-primary px-4">
+      + Tambah Polling
+    </a>
+
+    <a href="/admin/logout" class="btn btn-outline-danger px-4">
+      Logout
+    </a>
+  </div>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-4">
+    <div class="stat-card">
+      <h3>{{ total_polls }}</h3>
+      <p>Total Polling</p>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="stat-card">
+      <h3>{{ total_options }}</h3>
+      <p>Total Opsi</p>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="stat-card">
+      <h3>{{ total_votes }}</h3>
+      <p>Total Suara</p>
+    </div>
+  </div>
+</div>
+
+<div class="admin-card">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Pertanyaan Polling</th>
+          <th class="text-end">Aksi</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for poll in polls %}
+        <tr>
+          <td>
+            <span class="number-badge">{{ loop.index }}</span>
+          </td>
+
+          <td>
+            <strong>{{ poll.question }}</strong>
+            <br>
+            <small class="text-muted">Polling ID: {{ poll.id }}</small>
+          </td>
+
+          <td class="text-end">
+            <a href="/admin/options/{{ poll.id }}" class="btn btn-info btn-sm">
+              Kelola Opsi
+            </a>
+
+            <a href="/result/{{ poll.id }}" class="btn btn-outline-primary btn-sm">
+              Hasil
+            </a>
+
+            <a href="/admin/edit/{{ poll.id }}" class="btn btn-warning btn-sm">
+              Edit
+            </a>
+
+            <button
+              type="button"
+              class="btn btn-danger btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#deleteModal{{ poll.id }}">
+              Hapus
+            </button>
+
+            <div class="modal fade" id="deleteModal{{ poll.id }}" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content custom-modal">
+                  <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold">Hapus Polling?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                  </div>
+
+                  <div class="modal-body text-start">
+                    Polling <strong>{{ poll.question }}</strong> akan dihapus permanen.
+                  </div>
+
+                  <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                      Batal
+                    </button>
+
+                    <a href="/admin/delete/{{ poll.id }}" class="btn btn-danger">
+                      Ya, Hapus
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        {% else %}
+        <tr>
+          <td colspan="3" class="text-center py-5">
+            <h5>Belum ada polling</h5>
+            <p class="text-muted mb-3">
+              Tambahkan polling pertama dari tombol di atas.
+            </p>
+            <a href="/admin/add" class="btn btn-primary">Tambah Polling</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

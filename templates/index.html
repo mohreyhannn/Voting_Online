@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="hero-box text-center">
+
+    <h1 class="display-4 fw-bold">
+        Sistem Voting Online
+    </h1>
+
+    <p class="lead mt-3">
+        Platform sederhana untuk melakukan pemungutan suara
+        secara cepat, aman, dan transparan.
+    </p>
+
+    <a href="/polls"
+       class="btn btn-light btn-lg rounded-pill mt-3 px-4">
+       Mulai Voting
+    </a>
+
+</div>
+
+<div class="row mt-5 text-center">
+
+    <div class="col-md-6">
+        <div class="info-card">
+            <h2>{{ total_polls }}</h2>
+            <p>Total Polling</p>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="info-card">
+            <h2>{{ total_votes }}</h2>
+            <p>Total Suara Masuk</p>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

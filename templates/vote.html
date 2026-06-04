@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="vote-box">
+    <h2 class="fw-bold mb-2">{{ poll.question }}</h2>
+    <p class="text-muted mb-4">Pilih satu opsi yang menurut kamu paling sesuai.</p>
+
+    <form action="/submit-vote" method="POST">
+        <input type="hidden" name="poll_id" value="{{ poll.id }}">
+
+        {% for option in options %}
+        <label class="option-item">
+            <input type="radio" name="option_id" value="{{ option.id }}" required>
+            <span>{{ option.option_text }}</span>
+        </label>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary rounded-pill px-4 mt-4">
+            Kirim Suara
+        </button>
+    </form>
+</div>
+{% endblock %}
