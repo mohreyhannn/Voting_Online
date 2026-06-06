@@ -281,6 +281,190 @@ body {
     opacity: 0.9;
 }
 
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+/* Tablet */
+@media (max-width: 992px) {
+    .container {
+        max-width: 95%;
+    }
+
+    .hero-box {
+        padding: 60px 28px;
+    }
+
+    .hero-box h1 {
+        font-size: 38px;
+    }
+
+    .admin-header {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 18px;
+    }
+
+    .admin-header .d-flex {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .admin-header .btn {
+        flex: 1;
+    }
+
+    .stat-card {
+        margin-bottom: 16px;
+    }
+}
+
+/* HP */
+@media (max-width: 768px) {
+    body {
+        font-size: 15px;
+    }
+
+    .container {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .navbar .container {
+        flex-direction: column;
+        gap: 14px;
+        align-items: flex-start;
+    }
+
+    .navbar .d-flex {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 8px !important;
+    }
+
+    .navbar .btn {
+        flex: 1;
+        font-size: 14px;
+        padding: 8px 10px;
+    }
+
+    .navbar-brand {
+        font-size: 22px;
+    }
+
+    .hero-box {
+        padding: 48px 24px;
+        border-radius: 24px;
+        text-align: left !important;
+    }
+
+    .hero-box h1 {
+        font-size: 32px;
+        line-height: 1.2;
+    }
+
+    .hero-box .lead {
+        font-size: 16px;
+    }
+
+    .info-card,
+    .poll-card,
+    .vote-box,
+    .result-box,
+    .empty-box,
+    .admin-card {
+        padding: 22px;
+        border-radius: 20px;
+    }
+
+    .poll-card .btn,
+    .vote-box .btn,
+    .result-box .btn,
+    .admin-card .btn {
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    .option-item {
+        padding: 15px 16px;
+        font-size: 15px;
+    }
+
+    .result-item .d-flex {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .chart-box {
+        padding: 16px;
+        overflow-x: auto;
+    }
+
+    .chart-box canvas {
+        min-height: 260px;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 720px;
+    }
+
+    .modal-dialog {
+        margin: 16px;
+    }
+
+    footer {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+/* HP kecil */
+@media (max-width: 480px) {
+    .container {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .hero-box {
+        padding: 38px 20px;
+        border-radius: 22px;
+    }
+
+    .hero-box h1 {
+        font-size: 28px;
+    }
+
+    .hero-box .lead {
+        font-size: 15px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    .btn {
+        font-size: 14px;
+    }
+
+    .stat-card h3 {
+        font-size: 30px;
+    }
+
+    .toast-container {
+        left: 12px;
+        right: 12px;
+        top: 12px;
+    }
+
+    .toast {
+        width: 100%;
+    }
+}
+
 /* Footer */
 footer {
     opacity: 0.8;
