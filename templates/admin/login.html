@@ -1,52 +1,27 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
 
-{% block content %}
+<div class="vote-box mx-auto" style="max-width: 500px">
+  <h2 class="fw-bold mb-4 text-center">Login Admin</h2>
 
-<div class="vote-box mx-auto" style="max-width:500px">
+  <form method="POST">
+    <div class="mb-3">
+      <label class="form-label"> Username </label>
 
-    <h2 class="fw-bold mb-4 text-center">
-        Login Admin
-    </h2>
+      <input type="text" name="username" class="form-control" required />
+    </div>
 
-    <form method="POST">
+    <div class="mb-3">
+      <label class="form-label"> Password </label>
 
-        <div class="mb-3">
+      <input type="password" name="password" class="form-control" required />
+    </div>
 
-            <label class="form-label">
-                Username
-            </label>
-
-            <input
-                type="text"
-                name="username"
-                class="form-control"
-                required>
-
-        </div>
-
-        <div class="mb-3">
-
-            <label class="form-label">
-                Password
-            </label>
-
-            <input
-                type="password"
-                name="password"
-                class="form-control"
-                required>
-
-        </div>
-
-        <button
-            class="btn btn-primary w-100">
-
-            Login
-
-        </button>
-
-    </form>
-
+    <div class="text-center">
+    <button type="submit" class="btn btn-primary login-btn">
+        Login
+    </button>
+</div>
+  </form>
 </div>
 
 {% endblock %}

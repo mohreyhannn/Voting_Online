@@ -27,6 +27,17 @@
         <a class="navbar-brand fw-bold" href="/"> 🗳️ SuaraKita </a>
 
         <div class="d-flex gap-2 nav-actions">
+
+    {% if session.get("admin") and request.path == "/admin" %}
+
+        <a href="/logout" class="btn btn-danger nav-logout-btn">
+            <i class="bi bi-box-arrow-right"></i>
+            Logout
+        </a>
+
+    {% endif %}
+
+</div>
           {% if request.path == "/" or request.path == "/register" %} {% elif
           session.get("admin") or session.get("user_id") %}
 
