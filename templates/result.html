@@ -23,10 +23,21 @@
     </div>
     {% endfor %}
 
-    <a href="/polls" class="btn btn-outline-secondary rounded-pill px-4 mt-4">
-        Kembali ke Polling
-    </a>
+    {% if session.get("admin") %}
+        <a href="/admin" class="btn btn-outline-secondary rounded-pill px-4 mt-4">
+            <i class="bi bi-arrow-left"></i>
+            Kembali ke Dashboard
+        </a>
+    {% else %}
+        <a href="/polls" class="btn btn-outline-secondary rounded-pill px-4 mt-4">
+            <i class="bi bi-arrow-left"></i>
+            Kembali ke Polling
+        </a>
+    {% endif %}
 </div>
+
+<script id="chart-labels" type="application/json">{{ labels_json | safe }}</script>
+<script id="chart-data" type="application/json">{{ data_votes_json | safe }}</script>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -54,6 +65,7 @@
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
                     display: true
