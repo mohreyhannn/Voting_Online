@@ -465,6 +465,145 @@ body {
     }
 }
 
+/* ==========================
+   MOBILE BUTTON OPTIMIZATION
+========================== */
+
+@media (max-width:768px){
+
+    .btn{
+        width:100%;
+        min-height:48px;
+        font-size:15px;
+        font-weight:600;
+        border-radius:14px;
+    }
+
+    .d-flex.gap-2,
+    .d-flex.gap-3{
+        flex-direction:column;
+        width:100%;
+    }
+
+    .admin-header .btn{
+        width:100%;
+    }
+
+    .navbar .btn{
+        width:100%;
+    }
+
+    .table .btn{
+        width:100%;
+        margin-bottom:6px;
+    }
+
+    td.text-end{
+        min-width:180px;
+    }
+
+}
+
+/* ==========================
+   CUSTOM CENTER NOTIFICATION
+========================== */
+
+.custom-alert-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(6px);
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+    animation: fadeOverlay 0.25s ease;
+}
+
+.custom-alert-box {
+    width: 100%;
+    max-width: 420px;
+    background: white;
+    border-radius: 28px;
+    padding: 35px 28px;
+    text-align: center;
+
+    box-shadow: 0 30px 80px rgba(15, 23, 42, 0.35);
+    animation: popAlert 0.3s ease;
+}
+
+.alert-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 20px;
+    font-size: 34px;
+}
+
+.success-icon {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.danger-icon {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.warning-icon {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.info-icon {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.hide-alert {
+    animation: fadeOutAlert 0.25s ease forwards;
+}
+
+@keyframes fadeOverlay {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popAlert {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes fadeOutAlert {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
 /* Footer */
 footer {
     opacity: 0.8;

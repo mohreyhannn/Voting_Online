@@ -89,6 +89,13 @@ def home():
 
 @app.route("/polls")
 def polls():
+
+    if "user_id" not in session:
+        return redirect("/")
+
+    if "admin" in session:
+        return redirect("/admin")
+
     conn = get_db_connection()
     cur = conn.cursor()
 
@@ -103,6 +110,13 @@ def polls():
 
 @app.route("/vote/<int:poll_id>")
 def vote(poll_id):
+
+    if "admin" in session:
+        return redirect("/admin")
+
+    if "user_id" not in session:
+        return redirect("/")
+
     conn = get_db_connection()
     cur = conn.cursor()
 
@@ -126,37 +140,56 @@ def vote(poll_id):
 @app.route("/submit-vote", methods=["POST"])
 def submit_vote():
 
+    if "user_id" not in session:
+        return redirect("/")
+
     poll_id = request.form.get("poll_id")
     option_id = request.form.get("option_id")
-    voter_ip = request.remote_addr
+    user_id = session["user_id"]
 
     conn = get_db_connection()
     cur = conn.cursor()
 
-    # cek apakah sudah voting
+    # cek apakah user sudah voting pada polling ini
 
     cur.execute("""
         SELECT votes.id
         FROM votes
-        JOIN options ON votes.option_id = options.id
+        JOIN options
+            ON votes.option_id = options.id
         WHERE options.poll_id = %s
-        AND votes.voter_ip = %s
-    """, (poll_id, voter_ip))
+        AND votes.user_id = %s
+    """,
+    (poll_id, user_id))
 
     existing_vote = cur.fetchone()
 
     if existing_vote:
+
         cur.close()
         conn.close()
 
-        return render_template("already_voted.html")
+        flash(
+            "Anda sudah memberikan suara pada polling ini.",
+            "warning"
+        )
+
+        return render_template(
+            "already_voted.html"
+        )
 
     cur.execute(
         """
-        INSERT INTO votes(option_id, voter_ip)
-        VALUES (%s, %s)
+        INSERT INTO votes(
+            option_id,
+            user_id
+        )
+        VALUES(%s,%s)
         """,
-        (option_id, voter_ip)
+        (
+            option_id,
+            user_id
+        )
     )
 
     conn.commit()
@@ -164,13 +197,23 @@ def submit_vote():
     cur.close()
     conn.close()
 
-    return redirect(url_for("result", poll_id=poll_id))
+    flash(
+        "Voting berhasil diberikan.",
+        "success"
+    )
+
+    return redirect(
+        url_for(
+            "result",
+            poll_id=poll_id
+        )
+    )
 
 @app.route("/admin")
 def admin_dashboard():
 
     if "admin" not in session:
-        return redirect("/admin/login")
+        return redirect("/")
 
     conn = get_db_connection()
     cur = conn.cursor()
@@ -200,6 +243,13 @@ def admin_dashboard():
 
 @app.route("/result/<int:poll_id>")
 def result(poll_id):
+
+    if "admin" in session:
+        return redirect("/admin")
+
+    if "user_id" not in session:
+        return redirect("/")
+
     conn = get_db_connection()
     cur = conn.cursor()
 
@@ -296,7 +346,7 @@ def admin_login():
 def add_poll():
 
     if "admin" not in session:
-        return redirect("/admin/login")
+        return redirect("/")
 
     if request.method == "POST":
 
@@ -388,7 +438,7 @@ def delete_poll(id):
 def manage_options(poll_id):
 
     if "admin" not in session:
-        return redirect("/admin/login")
+        return redirect("/")
 
     conn = get_db_connection()
     cur = conn.cursor()
@@ -428,7 +478,7 @@ def manage_options(poll_id):
 def add_option(poll_id):
 
     if "admin" not in session:
-        return redirect("/admin/login")
+        return redirect("/")
 
     option_text = request.form["option_text"]
 
@@ -464,7 +514,7 @@ def add_option(poll_id):
 def delete_option(id):
 
     if "admin" not in session:
-        return redirect("/admin/login")
+        return redirect("/")
 
     conn = get_db_connection()
     cur = conn.cursor()
