@@ -432,12 +432,12 @@ footer {
     flex-direction: row !important;
   }
 
- .nav-logout-btn {
+.nav-logout-btn {
     width: auto !important;
     padding: 8px 22px !important;
     display: inline-flex !important;
-    align-items: center;
-    gap: 6px;
+    align-items: center !important;
+    gap: 6px !important;
 }
 
   .btn {
@@ -449,12 +449,12 @@ footer {
   }
 
   .login-btn {
-    min-width: 190px !important;
-    padding: 11px 42px !important;
+    min-width: 210px !important;
+    padding: 12px 48px !important;
     display: inline-flex !important;
-    justify-content: center;
-    align-items: center;
-  }
+    justify-content: center !important;
+    align-items: center !important;
+}
 
   @media (max-width: 768px) {
     .login-btn {
@@ -587,5 +587,24 @@ footer {
     max-width: 92%;
     padding: 30px 22px;
   }
+}
+
+@media (max-width: 768px) {
+    .navbar .container {
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+
+    .login-btn {
+        width: auto !important;
+        min-width: 210px !important;
+        margin: 0 auto !important;
+    }
+
+    .nav-logout-btn {
+        width: auto !important;
+        min-width: auto !important;
+    }
 }
 }
