@@ -244,10 +244,7 @@ def admin_dashboard():
 @app.route("/result/<int:poll_id>")
 def result(poll_id):
 
-    if "admin" in session:
-        return redirect("/admin")
-
-    if "user_id" not in session:
+    if "user_id" not in session and "admin" not in session:
         return redirect("/")
 
     conn = get_db_connection()
