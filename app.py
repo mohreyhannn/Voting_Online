@@ -8,8 +8,66 @@ from database import get_db_connection
 app = Flask(__name__)
 app.secret_key = "suara-kita-secret-key"
 
-@app.route("/")
-def index():
+@app.route("/", methods=["GET", "POST"])
+def login():
+
+    if request.method == "POST":
+
+        username = request.form["username"]
+        password = request.form["password"]
+
+        conn = get_db_connection()
+        cur = conn.cursor()
+
+        # Cek admin dulu
+        cur.execute(
+            "SELECT * FROM admins WHERE username=%s",
+            (username,)
+        )
+        admin = cur.fetchone()
+
+        if admin and admin["password"] == password:
+            session.clear()
+            session["admin"] = admin["username"]
+
+            cur.close()
+            conn.close()
+
+            flash("Login admin berhasil", "success")
+            return redirect("/admin")
+
+        # Kalau bukan admin, cek user
+        cur.execute(
+            "SELECT * FROM users WHERE username=%s",
+            (username,)
+        )
+        user = cur.fetchone()
+
+        if user and user["password"] == password:
+            session.clear()
+            session["user_id"] = user["id"]
+            session["username"] = user["username"]
+
+            cur.close()
+            conn.close()
+
+            flash("Login berhasil", "success")
+            return redirect("/home")
+
+        cur.close()
+        conn.close()
+
+        flash("Username atau password salah", "danger")
+        return redirect("/")
+
+    return render_template("login.html")
+
+
+@app.route("/home")
+def home():
+
+    if "user_id" not in session:
+        return redirect("/")
 
     conn = get_db_connection()
     cur = conn.cursor()
@@ -28,7 +86,6 @@ def index():
         total_polls=total_polls,
         total_votes=total_votes
     )
-
 
 @app.route("/polls")
 def polls():
@@ -184,11 +241,11 @@ def result(poll_id):
     data_votes_json=data_votes_json
 )
 
-@app.route("/admin/logout")
-def admin_logout():
+@app.route("/logout")
+def logout():
     session.clear()
     flash("Logout berhasil", "success")
-    return redirect("/admin/login")
+    return redirect("/")
 
 @app.route("/admin/login", methods=["GET", "POST"])
 def admin_login():
@@ -439,6 +496,54 @@ def delete_option(id):
 
     flash("Opsi berhasil dihapus", "danger")
     return redirect(f"/admin/options/{poll_id}")
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+
+    if request.method == "POST":
+
+        username = request.form["username"]
+        email = request.form["email"]
+        password = request.form["password"]
+        confirm_password = request.form["confirm_password"]
+
+        if password != confirm_password:
+            flash("Konfirmasi password tidak sesuai", "danger")
+            return redirect("/register")
+
+        conn = get_db_connection()
+        cur = conn.cursor()
+
+        cur.execute(
+            "SELECT * FROM users WHERE username=%s OR email=%s",
+            (username, email)
+        )
+
+        existing_user = cur.fetchone()
+
+        if existing_user:
+            cur.close()
+            conn.close()
+            flash("Username atau email sudah digunakan", "danger")
+            return redirect("/register")
+
+        cur.execute(
+            """
+            INSERT INTO users(username, email, password)
+            VALUES(%s, %s, %s)
+            """,
+            (username, email, password)
+        )
+
+        conn.commit()
+
+        cur.close()
+        conn.close()
+
+        flash("Akun berhasil dibuat. Silakan login.", "success")
+        return redirect("/")
+
+    return render_template("register.html")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="vote-box mx-auto" style="max-width: 520px;">
+    <h2 class="fw-bold text-center mb-2">Daftar Akun</h2>
+
+    <p class="text-muted text-center mb-4">
+        Buat akun terlebih dahulu untuk mengikuti voting.
+    </p>
+
+    <form method="POST">
+
+        <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input
+                type="text"
+                name="username"
+                class="form-control"
+                required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input
+                type="email"
+                name="email"
+                class="form-control"
+                required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input
+                type="password"
+                name="password"
+                class="form-control"
+                required>
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label">Konfirmasi Password</label>
+            <input
+                type="password"
+                name="confirm_password"
+                class="form-control"
+                required>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">
+            Daftar
+        </button>
+
+    </form>
+
+    <p class="text-center mt-4 mb-0">
+        Sudah punya akun?
+        <a href="/">Login di sini</a>
+    </p>
+</div>
+
+{% endblock %}
