@@ -33,7 +33,7 @@ def login():
             cur.close()
             conn.close()
 
-            flash("Login admin berhasil", "success")
+            flash("Selamat datang admin", "success")
             return redirect("/admin")
 
         # Kalau bukan admin, cek user
@@ -51,13 +51,13 @@ def login():
             cur.close()
             conn.close()
 
-            flash("Login berhasil", "success")
+            flash("Silahkan memilih, jangan golput ya", "success")
             return redirect("/home")
 
         cur.close()
         conn.close()
 
-        flash("Username atau password salah", "danger")
+        flash("Username atau password salah, inget-inget lagi deh", "danger")
         return redirect("/")
 
     return render_template("login.html")
@@ -170,7 +170,7 @@ def submit_vote():
         conn.close()
 
         flash(
-            "Anda sudah memberikan suara pada polling ini.",
+            "Lau Udeh polling, jangan maruk.",
             "warning"
         )
 
@@ -198,7 +198,7 @@ def submit_vote():
     conn.close()
 
     flash(
-        "Voting berhasil diberikan.",
+        "Voting berhasil yeee.",
         "success"
     )
 
@@ -291,7 +291,7 @@ def result(poll_id):
 @app.route("/logout")
 def logout():
     session.clear()
-    flash("Logout berhasil", "success")
+    flash("Lau ude Logout yee", "success")
     return redirect("/")
 
 @app.route("/admin/login", methods=["GET", "POST"])
@@ -324,14 +324,14 @@ def admin_login():
             session["admin"] = username
 
             flash(
-                "Login berhasil",
+                "Lau login jadi admin yee",
                 "success"
             )
 
             return redirect("/admin")
 
         flash(
-            "Username atau Password salah",
+            "Username atau Password salah, coba lagi yee",
             "danger"
         )
 
@@ -587,7 +587,7 @@ def register():
         cur.close()
         conn.close()
 
-        flash("Akun berhasil dibuat. Silakan login.", "success")
+        flash("Anaji akun baru. Silakan login.", "success")
         return redirect("/")
 
     return render_template("register.html")

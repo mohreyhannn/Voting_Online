@@ -62,11 +62,6 @@ body {
   box-shadow: 0 8px 18px rgba(22, 163, 74, 0.25);
 }
 
-.login-btn {
-  min-width: 170px;
-  padding: 10px 34px;
-  border-radius: 999px;
-}
 
 /* Hero */
 .hero-box {
@@ -448,26 +443,6 @@ footer {
     border-radius: 999px;
   }
 
-  .login-btn {
-    min-width: 210px !important;
-    padding: 12px 48px !important;
-    display: inline-flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-}
-
-  @media (max-width: 768px) {
-    .login-btn {
-        min-width: 190px !important;
-        width: auto !important;
-        margin: 0 auto !important;
-    }
-
-    .nav-logout-btn {
-        width: auto !important;
-        min-width: auto !important;
-    }
-
   .hero-box {
     padding: 48px 24px;
     border-radius: 24px;
@@ -589,6 +564,32 @@ footer {
   }
 }
 
+/* FINAL MOBILE NAVBAR & LOGIN BUTTON */
+
+.login-btn {
+    width: 220px !important;
+    height: 52px;
+    display: inline-flex !important;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto !important;
+    border-radius: 999px;
+}
+
+form .text-center {
+    display: flex;
+    justify-content: center;
+}
+
+.nav-logout-btn {
+    width: auto !important;
+    min-width: auto !important;
+    padding: 8px 22px !important;
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+}
+
 @media (max-width: 768px) {
     .navbar .container {
         flex-direction: row !important;
@@ -597,14 +598,12 @@ footer {
     }
 
     .login-btn {
-        width: auto !important;
-        min-width: 210px !important;
-        margin: 0 auto !important;
+        width: 220px !important;
+        height: 52px;
     }
 
     .nav-logout-btn {
         width: auto !important;
         min-width: auto !important;
     }
-}
 }
